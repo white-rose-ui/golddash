@@ -34,6 +34,17 @@ const server = http.createServer((req, res) => {
                 }
             });
         });
+    } else if (req.method === 'GET' && req.url === '/logout') {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'text/html');
+        fs.readFile(path.join(__dirname, 'login.html'), (err, data) => {
+            if (err) {
+                res.statusCode = 500;
+                res.end('Error loading login.html');
+            } else {
+                res.end(data);
+            }
+        });
     } else {
         res.statusCode = 404;
         res.end('Not Found');
